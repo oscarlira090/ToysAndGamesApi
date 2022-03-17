@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using StockManagementEntities.Models;
 using ToysAndGamesBusiness;
 using ToysAndGamesEntities;
@@ -11,6 +10,7 @@ namespace ToysAndGamesApi.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductBusiness _proB;
+        
         public ProductController(IProductBusiness proB)
         {
             _proB = proB;
@@ -22,6 +22,7 @@ namespace ToysAndGamesApi.Controllers
         {
             try
             {
+               
                 return _proB.Get();
             }
             catch (Exception ex)
@@ -46,7 +47,7 @@ namespace ToysAndGamesApi.Controllers
 
         // POST api/<ProductController>
         [HttpPost]
-        public ActionResult<MessageResponse> PostOrUpdate([FromBody] Product product)
+        public ActionResult<MessageResponse> PostOrUpdate([FromForm] Product product)
         {
             try
             {

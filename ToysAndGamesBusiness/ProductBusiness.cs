@@ -5,16 +5,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ToysAndGamesUtil;
 
 namespace ToysAndGamesBusiness
 {
     public class ProductBusiness : IProductBusiness
     {
         private readonly ToysAndGamesDbContext _db;
+        private readonly ILocalStorage _localSt;
 
-        public ProductBusiness(ToysAndGamesDbContext db)
+        public ProductBusiness(ToysAndGamesDbContext db, ILocalStorage localSt)
         {
             _db = db;
+            _localSt = localSt;
         }
         public void CreateOrUpdate(Product product)
         {
@@ -27,6 +30,8 @@ namespace ToysAndGamesBusiness
 
                 _db.SaveChanges();
 
+                if (product.File != null)
+                    _localSt.StoreFile(product.File, product.Id.ToString());
             }
             catch (Exception)
             {

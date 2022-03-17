@@ -17,6 +17,11 @@
   <ItemGroup>
     <ProjectReference Include="..\ToysAndGamesBusiness\ToysAndGamesBusiness.csproj" />
     <ProjectReference Include="..\ToysAndGamesPersistence\ToysAndGamesPersistence.csproj" />
+    <ProjectReference Include="..\ToysAndGamesUtil\ToysAndGamesUtil.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\ProductImages\" />
   </ItemGroup>
 
 </Project>
