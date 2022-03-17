@@ -6,7 +6,7 @@ namespace ToysAndGamesBusiness
     {
         List<Product> Get();
         Product GetById(int id);
-        void CreateOrUpdate(Product product);
+        Product CreateOrUpdate(Product product);
         void Delete(int id);
     }
 }

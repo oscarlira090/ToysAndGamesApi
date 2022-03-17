@@ -22,12 +22,11 @@ namespace ToysAndGamesApi.Controllers
         {
             try
             {
-               
                 return _proB.Get();
             }
             catch (Exception ex)
             {
-                return BadRequest(new MessageResponse { Message = ex.Message });
+                return BadRequest(ex.Message);
             }
         }
 
@@ -41,26 +40,27 @@ namespace ToysAndGamesApi.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new MessageResponse { Message = ex.Message });
+                return BadRequest(ex.Message);
             }
         }
 
         // POST api/<ProductController>
         [HttpPost]
-        public ActionResult<MessageResponse> PostOrUpdate([FromForm] Product product)
+        public ActionResult<string> PostOrUpdate([FromForm] Product product)
         {
             try
             {
+                Product ?productResult = null;
                 if (ModelState.IsValid)
                 {
-                    _proB.CreateOrUpdate(product);
+                   productResult = _proB.CreateOrUpdate(product);
                 }
-                return new MessageResponse { Message = "The product has been saved succesfully" };
+                return CreatedAtAction(nameof(Get), new { id = productResult?.Id }, productResult);
 
             }
             catch (Exception ex)
             {
-                return BadRequest(new MessageResponse { Message = ex.Message });
+                return BadRequest(ex.Message);
             }
         }
 
@@ -68,16 +68,17 @@ namespace ToysAndGamesApi.Controllers
 
         // DELETE api/<ProductController>/5
         [HttpDelete("{id}")]
-        public ActionResult<MessageResponse> Delete(int id)
+        public ActionResult<string> Delete(int id)
         {
             try
             {
                 _proB.Delete(id);
-                return new MessageResponse { Message = "The product has been deleted succesfully" };
+
+                return Ok("The product has been deleted succesfully");
             }
             catch (Exception ex)
             {
-                return BadRequest(new MessageResponse { Message = ex.Message });
+                return BadRequest(ex.Message);
             }
         }
     }

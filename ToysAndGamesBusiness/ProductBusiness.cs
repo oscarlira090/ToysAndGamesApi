@@ -19,7 +19,7 @@ namespace ToysAndGamesBusiness
             _db = db;
             _localSt = localSt;
         }
-        public void CreateOrUpdate(Product product)
+        public Product CreateOrUpdate(Product product)
         {
             try
             {
@@ -32,6 +32,8 @@ namespace ToysAndGamesBusiness
 
                 if (product.File != null)
                     _localSt.StoreFile(product.File, product.Id.ToString());
+
+                return product;
             }
             catch (Exception)
             {
@@ -41,7 +43,6 @@ namespace ToysAndGamesBusiness
 
         public List<Product> Get()
         {
-            List<Product>? products = new List<Product>();
             try
             {
                 return _db.Products.ToList();
@@ -88,6 +89,7 @@ namespace ToysAndGamesBusiness
                     throw new Exception("Product Not Found");
 
                 _db.Products.Remove(product);
+                _db.SaveChanges();
             }
             catch (Exception)
             {
