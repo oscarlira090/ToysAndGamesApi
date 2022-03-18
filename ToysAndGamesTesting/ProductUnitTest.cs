@@ -31,7 +31,7 @@ namespace ToysAndGamesTesting
             ProductController _controller = new ProductController(_proB.Object);
             var actualProducts = _controller.Get();
 
-            Assert.Equal(SampleData.GetSampleProducts(), actualProducts.Value);
+            Assert.Equal(SampleData.GetSampleProducts().Count, ((List<Product>)actualProducts.Value).Count);
         }
 
         [Fact]
