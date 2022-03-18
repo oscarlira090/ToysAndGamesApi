@@ -10,12 +10,12 @@ using Xunit;
 
 namespace ToysAndGamesTesting
 {
-    public class ProductTest
+    public class ProductUnitTest
     {
         private readonly Mock<IProductBusiness> _proB;
         private readonly ProductController _controller;
         List<Product> _expectedProducts = new List<Product>();
-        public ProductTest()
+        public ProductUnitTest()
         {
             _proB = new Mock<IProductBusiness>();
             _controller = new ProductController(_proB.Object);
