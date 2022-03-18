@@ -24,6 +24,7 @@ namespace ToysAndGamesTesting
         }
 
         [Fact]
+        [Trait ("Category", "IntegrationTest")]
         public async Task Get_ReturnAllProducts()
         {
             var response = await _client.GetAsync("/api/Product");
@@ -36,6 +37,7 @@ namespace ToysAndGamesTesting
         }
 
         [Fact]
+        [Trait("Category", "IntegrationTest")]
         public async Task GetByIdProduct_ReturnProductNotFound()
         {
             int productId = 0;
@@ -44,6 +46,7 @@ namespace ToysAndGamesTesting
         }
 
         [Fact]
+        [Trait("Category", "IntegrationTest")]
         public async Task GetByIdProduct_ReturnProductFound()
         {
             int productId = 1;
@@ -56,38 +59,31 @@ namespace ToysAndGamesTesting
             Assert.NotNull(product);
         }
 
-        [Fact]
-        public async Task Post_CreateReturnCreatedProduct()
+        [Theory]
+        [Trait("Category", "IntegrationTest")]
+        [ProductDataAttribute]
+        public async Task Post_CreateReturnCreatedProduct(FormUrlEncodedContent formData,HttpStatusCode expected )
         {
-            var formContent = new FormUrlEncodedContent(new[]
-            {
-                new KeyValuePair<string, string>("Name", "Spiderman"),
-                new KeyValuePair<string, string>("Description", " "),
-                new KeyValuePair<string, string>("AgeRestriction", "5"),
-                new KeyValuePair<string, string>("Company", "Marvel"),
-                new KeyValuePair<string, string>("Price", "200")
-            });
-
-            var response = await _client.PostAsync($"/api/Product", formContent);
+            var response = await _client.PostAsync($"/api/Product", formData);
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
             var product = JsonConvert.DeserializeObject<Product>(content);
-            Assert.Equal(HttpStatusCode.Created, response.StatusCode);
+            Assert.Equal(expected, response.StatusCode);
             Assert.NotNull(product);
         }
 
-        [Fact]
-        public async Task Delete_ReturnMessageDelete()
+        [Theory]
+        [InlineData(1008, SampleData.ProductDeleteMessage)]
+        [Trait("Category", "IntegrationTest")]
+        public async Task Delete_ReturnDeleteMessage(int productId, string expectedMessage)
         {
-            int productId = 1008;
-            string message = "The product has been deleted succesfully";
             var response = await _client.DeleteAsync($"/api/Product/{productId}");
             response.EnsureSuccessStatusCode();
 
             string content = await response.Content.ReadAsStringAsync();
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-            Assert.Equal(message, content);
+            Assert.Equal(expectedMessage, content);
 
         }
     }

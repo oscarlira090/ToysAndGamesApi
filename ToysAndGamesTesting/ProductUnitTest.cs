@@ -14,61 +14,58 @@ namespace ToysAndGamesTesting
     {
         private readonly Mock<IProductBusiness> _proB;
         private readonly ProductController _controller;
-        List<Product> _expectedProducts = new List<Product>();
+        
+
         public ProductUnitTest()
         {
             _proB = new Mock<IProductBusiness>();
             _controller = new ProductController(_proB.Object);
-
-            _expectedProducts.Add(new Product { Id = 1, Name = "Spiderman", Description = "", AgeRestriction = 5, Company = "Marvel", Price = 200 });
-            _expectedProducts.Add(new Product { Id = 2, Name = "Thor", Description = "", AgeRestriction = 5, Company = "Marvel", Price = 150 });
-            _expectedProducts.Add(new Product { Id = 3, Name = "Hulk", Description = "", AgeRestriction = 5, Company = "Marvel", Price = 500 });
-            _expectedProducts.Add(new Product { Id = 4, Name = "Superman", Description = "", AgeRestriction = 5, Company = "DC", Price = 1000 });
         }
 
         [Fact]
+        [Trait("Category", "UnitTest")]
         public void Get_ReturnAllProducts()
         {
-            _proB.Setup(p => p.Get()).Returns(_expectedProducts);
+            _proB.Setup(p => p.Get()).Returns(SampleData.GetSampleProducts());
 
             ProductController _controller = new ProductController(_proB.Object);
             var actualProducts = _controller.Get();
 
-            Assert.Equal(_expectedProducts, actualProducts.Value);
+            Assert.Equal(SampleData.GetSampleProducts(), actualProducts.Value);
         }
 
         [Fact]
+        [Trait("Category", "UnitTest")]
         public void GetByIdProduct_ReturnProductNotFound()
         {
-            string messageEx = "Product Not Found";
-            int productId = 1;
-            _proB.Setup(p => p.GetById(It.IsAny<int>())).Throws(new Exception(messageEx));
+            _proB.Setup(p => p.GetById(It.IsAny<int>())).Throws(new Exception(SampleData.ProductNotFoundMessage));
 
             ProductController _controller = new ProductController(_proB.Object);
-            var actualProducts = _controller.Get(productId);
+            var actualProducts = _controller.Get(1);
 
             Assert.IsType<BadRequestObjectResult>(actualProducts.Result);
-            Assert.Equal(messageEx, ((BadRequestObjectResult?)actualProducts.Result)?.Value);
+            Assert.Equal(SampleData.ProductNotFoundMessage, ((BadRequestObjectResult?)actualProducts.Result)?.Value);
         }
 
         [Fact]
+        [Trait("Category", "UnitTest")]
         public void GetByIdProduct_ReturnProductFound()
         {
-            int productId = 1;
-            Product expectedProduct = new Product { Id = 1, Name = "Spiderman", Description = "", AgeRestriction = 5, Company = "Marvel", Price = 200 };
+            Product expectedProduct = SampleData.GetSampleProduct();
             _proB.Setup(p => p.GetById(It.IsAny<int>())).Returns(expectedProduct);
 
             ProductController _controller = new ProductController(_proB.Object);
-            var actualProduct = _controller.Get(productId);
+            var actualProduct = _controller.Get(1);
             Product? product = (Product?)actualProduct.Value;
 
             Assert.Equal(expectedProduct.Id, product?.Id);
         }
 
         [Fact]
+        [Trait("Category", "UnitTest")]
         public void Post_CreateReturnCreatedProduct()
         {
-            Product productToCreate = new Product { Id = 1, Name = "Spiderman", Description = "", AgeRestriction = 5, Company = "Marvel", Price = 200 };
+            Product productToCreate = SampleData.GetSampleProduct();
             _proB.Setup(p => p.CreateOrUpdate(productToCreate)).Returns(productToCreate);
 
             ProductController _controller = new ProductController(_proB.Object);
@@ -78,18 +75,16 @@ namespace ToysAndGamesTesting
         }
 
         [Fact]
-        public void Delete_ReturnMessageDelete()
+        [Trait("Category", "UnitTest")]
+        public void Delete_ReturnDeleteMessage()
         {
-            string message = "The product has been deleted succesfully";
-            int productId = 1;
-            _proB.Setup(p => p.Delete(productId));
+            _proB.Setup(p => p.Delete(It.IsAny<int>()));
 
             ProductController _controller = new ProductController(_proB.Object);
-            var actualProducts = _controller.Delete(productId);
+            var actualProducts = _controller.Delete(1);
             OkObjectResult? actionResult = (OkObjectResult?)actualProducts.Result;
             
-            Assert.Equal(message, actionResult?.Value);
+            Assert.Equal(SampleData.ProductDeleteMessage, actionResult?.Value);
         }
-
     }
 }
