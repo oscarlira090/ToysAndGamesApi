@@ -9,5 +9,7 @@ namespace ToysAndGamesBusiness
     public interface IProductImages
     {
         List<string> GetImages(int? productId);
+
+        string getBasePath();
     }
 }

@@ -8,5 +8,6 @@ namespace ToysAndGamesBusiness
         Product GetById(int id);
         Product CreateOrUpdate(Product product);
         void Delete(int id);
+
     }
 }
