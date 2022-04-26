@@ -12,7 +12,7 @@ namespace StockManagementEntities.Models
     public class Product
     {
         [Key]
-        public int Id { get; set; }
+        public int? Id { get; set; }
         [Required]
         [StringLength(50)]
         public string? Name { get; set; }
@@ -33,6 +33,9 @@ namespace StockManagementEntities.Models
 
         [NotMapped]
         public IFormFile? File { get; set; }
+
+
+
 
     }
 }

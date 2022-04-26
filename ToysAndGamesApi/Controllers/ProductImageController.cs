@@ -21,11 +21,18 @@ namespace ToysAndGamesApi.Controllers
         {
             try
             {
+                if (!productoId.HasValue) {
+                    return BadRequest("ProductId Cannot be null");
+                }
                 return _proIma.GetImages(productoId);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                //TODO: If GetImages throw an exception, this line is returning a 400 Bad Request, instead of a 500 Internal Server Error
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+
+                //400 Client Error
+                //500 Server / Backend Error
             }
         }
     }

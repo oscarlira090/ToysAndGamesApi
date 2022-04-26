@@ -17,10 +17,10 @@ builder.Services.AddDbContext<ToysAndGamesDbContext>(options => options.UseSqlSe
 builder.Services.Configure<Settings>(builder.Configuration.GetSection(Settings.SETTING_NAME));
 
 //Services
-
-builder.Services.AddTransient<IProductBusiness, ProductBusiness>();
-builder.Services.AddTransient<ILocalStorage, LocalStorage>();
-builder.Services.AddTransient<IProductImages, ProductImages>();
+//TODO: Use Scopeed instead of Transient
+builder.Services.AddScoped<IProductBusiness, ProductBusiness>();
+builder.Services.AddScoped<ILocalStorage, LocalStorage>();
+builder.Services.AddScoped<IProductImages, ProductImages>();
 
 
 
