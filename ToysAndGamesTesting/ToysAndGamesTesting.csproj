@@ -25,7 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ToysAndGamesApi\ToysAndGamesApi.csproj" />
-    <ProjectReference Include="..\ToysAndGamesBusiness\ToysAndGamesBusiness.csproj" />
+    <ProjectReference Include="..\ToysAndGamesBusiness\ToysAndGames.Services.csproj" />
   </ItemGroup>
 
 </Project>

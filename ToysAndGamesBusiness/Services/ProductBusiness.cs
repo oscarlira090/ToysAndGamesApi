@@ -3,6 +3,7 @@ using StockManagementPersistence;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using ToysAndGamesUtil;
@@ -23,7 +24,8 @@ namespace ToysAndGamesBusiness
         {
             try
             {
-                if (product.Id == 0)
+                //TODO: ERRROR if productId its 0 its my product not going to be added with the 0 ID ?
+                if (!product.Id.HasValue)
                     _db.Products.Add(product);
                 else
                     _db.Products.Update(product);
@@ -74,6 +76,11 @@ namespace ToysAndGamesBusiness
                 throw;
             }
         }
+
+        //public async Task<IList<Product>> Get(Expression<Func<Product, bool>> predicate, Expression<Func<Product)
+        //{
+        //    return _db.Products.Where(predicate).ToList();
+        //}
 
         public void Delete(int id)
         {

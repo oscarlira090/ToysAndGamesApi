@@ -9,11 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToysAndGamesEntities", "Toy
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToysAndGamesPersistence", "ToysAndGamesPersistence\ToysAndGamesPersistence.csproj", "{C45EE56E-CAFB-4C2C-A693-C2714718E5D5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToysAndGamesBusiness", "ToysAndGamesBusiness\ToysAndGamesBusiness.csproj", "{78A35403-592D-4A7C-964D-C72A3E7560E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToysAndGames.Services", "ToysAndGamesBusiness\ToysAndGames.Services.csproj", "{78A35403-592D-4A7C-964D-C72A3E7560E6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToysAndGamesUtil", "ToysAndGamesUtil\ToysAndGamesUtil.csproj", "{FD04862D-91C4-437A-9461-08CEE7D23F82}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToysAndGamesTesting", "ToysAndGamesTesting\ToysAndGamesTesting.csproj", "{2F2859A5-187D-44AE-851B-80C3AAEA609C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToysAndGamesTesting", "ToysAndGamesTesting\ToysAndGamesTesting.csproj", "{2F2859A5-187D-44AE-851B-80C3AAEA609C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

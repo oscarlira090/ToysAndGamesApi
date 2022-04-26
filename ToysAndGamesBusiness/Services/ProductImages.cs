@@ -28,11 +28,14 @@ namespace ToysAndGamesBusiness
         {
             try
             {
-                if (productId == 0)
+                //TODO: use HasValue instead of validating null or 0
+                if (!productId.HasValue || productId == 0 )
                     throw new Exception("Id Can't be null or 0");
 
+                //TODO: IF the product ID is null this will throw an exception
                 Product? product = _db.Products.FirstOrDefault(p => p.Id == productId);
                 
+                //This should be the first line not the last, validations are meant to be at the beggining
                 if (product == null)
                     throw new Exception("Product Not Found");
 
