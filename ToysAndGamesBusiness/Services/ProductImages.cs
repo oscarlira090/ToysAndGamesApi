@@ -19,6 +19,11 @@ namespace ToysAndGamesBusiness
             _db = db;
         }
 
+        public string getBasePath()
+        {
+            return _localSt.getBasePath();
+        }
+
         public List<string> GetImages(int ? productId)
         {
             try

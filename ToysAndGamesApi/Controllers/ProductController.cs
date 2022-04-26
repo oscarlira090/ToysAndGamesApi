@@ -74,7 +74,7 @@ namespace ToysAndGamesApi.Controllers
             {
                 _proB.Delete(id);
 
-                return Ok("The product has been deleted succesfully");
+                return Ok(new {Message="The product has been deleted succesfully" });
             }
             catch (Exception ex)
             {

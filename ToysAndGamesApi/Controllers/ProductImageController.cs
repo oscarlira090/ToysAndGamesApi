@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.StaticFiles;
+using System.Net;
 using ToysAndGamesBusiness;
 using ToysAndGamesEntities;
 using ToysAndGamesUtil;
@@ -16,15 +18,30 @@ namespace ToysAndGamesApi.Controllers
         }
 
         // GET api/<ProductImageController>
-        [HttpGet]
-        public ActionResult<List<string>> Get(int? productoId)
+        [HttpGet("{id}")]
+        public ActionResult<List<string>> Get(int id)
         {
             try
             {
-                if (!productoId.HasValue) {
-                    return BadRequest("ProductId Cannot be null");
-                }
-                return _proIma.GetImages(productoId);
+                return _proIma.GetImages(id);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("display/{url}")]
+        public ActionResult GetImages(string url)
+        {
+            try
+            {
+                string urlfinal = _proIma.getBasePath() + WebUtility.UrlDecode(url);
+                string ?contentType = "";
+                if (!System.IO.File.Exists(urlfinal)) return BadRequest("URL NOT FOUND");
+
+                new FileExtensionContentTypeProvider().TryGetContentType(urlfinal, out contentType);
+                return File(System.IO.File.OpenRead(urlfinal), contentType);
             }
             catch (Exception ex)
             {

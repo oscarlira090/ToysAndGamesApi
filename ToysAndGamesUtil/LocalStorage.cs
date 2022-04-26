@@ -23,6 +23,11 @@ namespace ToysAndGamesUtil
             BasePath = $"{_env.WebRootPath}\\{_sett.ImageFolder}\\";
         }
 
+        public string getBasePath()
+        {
+            return $"{_env.WebRootPath}\\";
+        }
+
         
 
         public List<string> ReadFiles(int? key)

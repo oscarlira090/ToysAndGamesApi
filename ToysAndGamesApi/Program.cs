@@ -7,6 +7,8 @@ using ToysAndGamesUtil;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+
 // Add services to the container.
 
 //SQL Server Connection
@@ -39,6 +41,17 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+
+// global cors policy
+
+app.UseCors(x => x
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .SetIsOriginAllowed(origin => true) // allow any origin
+    //.AllowCredentials()
+    ); // allow credentials
+
 
 app.UseAuthorization();
 

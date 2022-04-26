@@ -12,5 +12,7 @@ namespace ToysAndGamesUtil
         Task StoreFile(IFormFile file, string key);
 
         List<string> ReadFiles(int? key);
+
+        string getBasePath();
     }
 }
