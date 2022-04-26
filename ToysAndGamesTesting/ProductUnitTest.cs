@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using ToysAndGamesApi.Controllers;
 using ToysAndGamesBusiness;
-using ToysAndGamesEntities;
 using Xunit;
 
 namespace ToysAndGamesTesting
@@ -45,6 +44,9 @@ namespace ToysAndGamesTesting
 
             Assert.IsType<BadRequestObjectResult>(actualProducts.Result);
             Assert.Equal(SampleData.ProductNotFoundMessage, ((BadRequestObjectResult?)actualProducts.Result)?.Value);
+            _proB.Verify(x => x.GetById(It.IsAny<int>()),Times.Exactly(1));
+
+
         }
 
         [Fact]

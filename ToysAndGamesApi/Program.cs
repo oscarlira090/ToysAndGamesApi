@@ -13,7 +13,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 //SQL Server Connection
 
-builder.Services.AddDbContext<ToysAndGamesDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<ToysAndGamesDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+    sqlServerOptionsAction :sqlOptions =>
+    {
+
+        sqlOptions.EnableRetryOnFailure(
+            maxRetryCount:10,
+            maxRetryDelay:TimeSpan.FromSeconds(5),
+            errorNumbersToAdd:null);
+    })); ;
 
 //Setting
 builder.Services.Configure<Settings>(builder.Configuration.GetSection(Settings.SETTING_NAME));

@@ -1,4 +1,4 @@
-﻿{
+{
   "$schema": "https://json.schemastore.org/launchsettings.json",
   "iisSettings": {
     "windowsAuthentication": false,
@@ -11,13 +11,19 @@
   "profiles": {
     "ToysAndGamesApi": {
       "commandName": "Project",
-      "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:7271;http://localhost:5271",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "Store_Settings": {
+        "ImageFolder": "ProductImages"
+      },
+      "ConnectionStrings": {
+        "DefaultConnection": "Data Source=.\\SQLEXPRESS;Initial Catalog=ToysAndGamesStore;User Id=sa;Password=123asdZXC"
+      },
+      "applicationUrl": "https://localhost:7271;http://localhost:5271",
+      "dotnetRunMessages": true
     },
     "IIS Express": {
       "commandName": "IISExpress",
@@ -25,6 +31,12 @@
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "Store_Settings": {
+        "ImageFolder": "ProductImages"
+      },
+      "ConnectionStrings": {
+        "DefaultConnection": "Data Source=.\\SQLEXPRESS;Initial Catalog=ToysAndGamesStore;User Id=sa;Password=123asdZXC"
       }
     }
   }
