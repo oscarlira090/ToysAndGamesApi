@@ -2,7 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using StockManagementPersistence;
 using ToysAndGamesApi;
 using ToysAndGamesBusiness;
+using ToysAndGamesBusiness.Services;
 using ToysAndGamesEntities;
+using ToysAndGamesServices.Contracts;
 using ToysAndGamesUtil;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,9 +30,9 @@ builder.Services.Configure<Settings>(builder.Configuration.GetSection(Settings.S
 
 //Services
 //TODO: Use Scopeed instead of Transient
-builder.Services.AddScoped<IProductBusiness, ProductBusiness>();
+builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ILocalStorage, LocalStorage>();
-builder.Services.AddScoped<IProductImages, ProductImages>();
+builder.Services.AddScoped<IProductImagesService, ProductImagesService>();
 
 
 

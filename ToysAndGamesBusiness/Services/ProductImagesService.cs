@@ -1,19 +1,15 @@
 ﻿using StockManagementEntities.Models;
 using StockManagementPersistence;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ToysAndGamesServices.Contracts;
 using ToysAndGamesUtil;
 
 namespace ToysAndGamesBusiness
 {
-    public class ProductImages : IProductImages
+    public class ProductImagesService : IProductImagesService
     {
         private readonly ToysAndGamesDbContext _db;
         private readonly ILocalStorage _localSt;
-        public ProductImages(ILocalStorage localSt, ToysAndGamesDbContext db)
+        public ProductImagesService(ILocalStorage localSt, ToysAndGamesDbContext db)
         {
             _localSt = localSt;
             _db = db;
@@ -29,8 +25,8 @@ namespace ToysAndGamesBusiness
             try
             {
                 //TODO: use HasValue instead of validating null or 0
-                if (!productId.HasValue || productId == 0 )
-                    throw new Exception("Id Can't be null or 0");
+                if (!productId.HasValue || productId <= 0 )
+                    throw new Exception("Id Can't be null or <= 0");
 
                 //TODO: IF the product ID is null this will throw an exception
                 Product? product = _db.Products.FirstOrDefault(p => p.Id == productId);

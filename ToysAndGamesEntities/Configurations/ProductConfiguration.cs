@@ -11,7 +11,18 @@ namespace ToysAndGamesEntities.Configurations
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
+
             builder.Property(x => x.Name).IsRequired();
+            builder.Property(x => x.Name).HasMaxLength(50);
+
+            builder.Property(x => x.Description).HasMaxLength(100);
+
+            builder.Property(x => x.Company).IsRequired();
+            builder.Property(x => x.Company).HasMaxLength(100);
+
+            builder.Property(x => x.Price).IsRequired();
+            builder.Property(x => x.Price).HasPrecision(6, 2);
+
             builder.HasData(Get());
 
 

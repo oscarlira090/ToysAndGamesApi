@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.StaticFiles;
 using System.Net;
 using ToysAndGamesBusiness;
 using ToysAndGamesEntities;
+using ToysAndGamesServices.Contracts;
 using ToysAndGamesUtil;
 
 namespace ToysAndGamesApi.Controllers
@@ -11,8 +12,8 @@ namespace ToysAndGamesApi.Controllers
     [ApiController]
     public class ProductImageController : ControllerBase
     {
-        private readonly IProductImages _proIma;
-        public ProductImageController(IProductImages proIma)
+        private readonly IProductImagesService _proIma;
+        public ProductImageController(IProductImagesService proIma)
         {
             _proIma = proIma;
         }
@@ -38,6 +39,7 @@ namespace ToysAndGamesApi.Controllers
             {
                 string urlfinal = _proIma.getBasePath() + WebUtility.UrlDecode(url);
                 string ?contentType = "";
+
                 if (!System.IO.File.Exists(urlfinal)) return BadRequest("URL NOT FOUND");
 
                 new FileExtensionContentTypeProvider().TryGetContentType(urlfinal, out contentType);

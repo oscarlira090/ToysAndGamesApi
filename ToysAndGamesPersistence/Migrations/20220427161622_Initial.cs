@@ -4,7 +4,7 @@
 
 namespace ToysAndGamesPersistence.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,16 +18,12 @@ namespace ToysAndGamesPersistence.Migrations
                     Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     AgeRestriction = table.Column<int>(type: "int", nullable: false),
                     Company = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    Price = table.Column<decimal>(type: "decimal(6,2)", precision: 6, scale: 2, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
                 });
-
-            //Add Constrainsts
-            migrationBuilder.Sql(@"ALTER Table dbo.Products ADD CONSTRAINT Chk_MinAndMax_Price CHECK (Price >= 1 AND Price <= 1000)");
-            migrationBuilder.Sql(@"ALTER Table dbo.Products ADD CONSTRAINT Chk_MinAndMax_AgeRestriction CHECK (AgeRestriction >= 0 AND AgeRestriction <= 100)");
 
             migrationBuilder.InsertData(
                 table: "Products",
@@ -47,10 +43,6 @@ namespace ToysAndGamesPersistence.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            //Drop Constrainsts
-            migrationBuilder.Sql(@"DROP CONSTRAINT Chk_MinAndMax_Price");
-            migrationBuilder.Sql(@"DROP CONSTRAINT Chk_MinAndMax_AgeRestriction");
-
             migrationBuilder.DropTable(
                 name: "Products");
         }

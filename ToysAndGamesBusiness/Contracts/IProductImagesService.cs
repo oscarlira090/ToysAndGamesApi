@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ToysAndGamesBusiness
+namespace ToysAndGamesServices.Contracts
 {
-    public interface IProductImages
+    public interface IProductImagesService
     {
         List<string> GetImages(int? productId);
 

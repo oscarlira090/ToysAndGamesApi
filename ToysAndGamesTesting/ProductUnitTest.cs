@@ -4,20 +4,20 @@ using StockManagementEntities.Models;
 using System;
 using System.Collections.Generic;
 using ToysAndGamesApi.Controllers;
-using ToysAndGamesBusiness;
+using ToysAndGamesServices.Contracts;
 using Xunit;
 
 namespace ToysAndGamesTesting
 {
     public class ProductUnitTest
     {
-        private readonly Mock<IProductBusiness> _proB;
+        private readonly Mock<IProductService> _proB;
         private readonly ProductController _controller;
         
 
         public ProductUnitTest()
         {
-            _proB = new Mock<IProductBusiness>();
+            _proB = new Mock<IProductService>();
             _controller = new ProductController(_proB.Object);
         }
 
@@ -68,7 +68,7 @@ namespace ToysAndGamesTesting
         public void Post_CreateReturnCreatedProduct()
         {
             Product productToCreate = SampleData.GetSampleProduct();
-            _proB.Setup(p => p.CreateOrUpdate(productToCreate)).Returns(productToCreate);
+            _proB.Setup(p => p.UpSert(productToCreate)).Returns(productToCreate);
 
             ProductController _controller = new ProductController(_proB.Object);
             var actualProduct = _controller.PostOrUpdate(productToCreate);

@@ -11,8 +11,8 @@ using StockManagementPersistence;
 namespace ToysAndGamesPersistence.Migrations
 {
     [DbContext(typeof(ToysAndGamesDbContext))]
-    [Migration("20220317001746_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20220427161622_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -49,7 +49,8 @@ namespace ToysAndGamesPersistence.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(6, 2)
+                        .HasColumnType("decimal(6,2)");
 
                     b.HasKey("Id");
 

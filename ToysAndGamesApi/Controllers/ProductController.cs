@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StockManagementEntities.Models;
-using ToysAndGamesBusiness;
-using ToysAndGamesEntities;
+using ToysAndGamesServices.Contracts;
 
 namespace ToysAndGamesApi.Controllers
 {
@@ -9,9 +8,9 @@ namespace ToysAndGamesApi.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly IProductBusiness _proB;
+        private readonly IProductService _proB;
         
-        public ProductController(IProductBusiness proB)
+        public ProductController(IProductService proB)
         {
             _proB = proB;
         }
@@ -53,7 +52,7 @@ namespace ToysAndGamesApi.Controllers
                 Product ?productResult = null;
                 if (ModelState.IsValid)
                 {
-                   productResult = _proB.CreateOrUpdate(product);
+                   productResult = _proB.UpSert(product);
                 }
                 return CreatedAtAction(nameof(Get), new { id = productResult?.Id }, productResult);
 

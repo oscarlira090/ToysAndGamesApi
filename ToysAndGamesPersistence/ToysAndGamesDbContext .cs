@@ -26,6 +26,7 @@ namespace StockManagementPersistence
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
+            /*
             var types = Assembly.GetExecutingAssembly().GetTypes()
                 .Where(x => x.GetInterfaces().Any(type =>
                     type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IEntityTypeConfiguration<>)))
@@ -38,7 +39,9 @@ namespace StockManagementPersistence
                 modelBuilder.ApplyConfiguration(configurationInstance);
                 var entityType = type.GetGenericInterfaceParameter(typeof(IEntityTypeConfiguration<>));
                 modelBuilder.Entity(entityType).HasData();
-            }
+            }*/
+            modelBuilder.ApplyConfiguration(new ProductConfiguration());
+
             base.OnModelCreating(modelBuilder);
         }
     }
